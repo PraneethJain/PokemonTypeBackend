@@ -14,11 +14,16 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRoutes);
 
+app.get("/", (req, res) => {
+  res.send({ mssg: "testing" });
+});
+
 mongoose
   .connect(process.env.MONGODB)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log("connected and listening on ", process.env.PORT);
+    const port = process.env.PORT || 8080;
+    app.listen(port, () => {
+      console.log("connected and listening on ", port);
     });
   })
   .catch((error) => {
